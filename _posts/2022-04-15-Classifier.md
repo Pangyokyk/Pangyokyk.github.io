@@ -410,7 +410,7 @@ X_train, X_test, y_train, y_test = train_test_split(cuisines_feature_df, cuisine
     ```
     정확도가 80프로 이상 나온다.
     
-    1. 데이터 행 하나를 테스트하면 이 모델이 작동하는 것을 볼 수 있다.
+1. 데이터 행 하나를 테스트하면 이 모델이 작동하는 것을 볼 수 있다.
 
     ```python
     print(f'ingredients: {X_test.iloc[50][X_test.iloc[50]!=0].keys()}')
@@ -424,7 +424,7 @@ X_train, X_test, y_train, y_test = train_test_split(cuisines_feature_df, cuisine
    cuisine: indian
    ```
    
-   1. 더 깊이 파고들면 이 예측의 정확성을 확인할 수 있다.
+1. 더 깊이 파고들면 이 예측의 정확성을 확인할 수 있다.
 
     ```python
     test= X_test.iloc[50].values.reshape(-1, 1).T
@@ -446,7 +446,7 @@ X_train, X_test, y_train, y_test = train_test_split(cuisines_feature_df, cuisine
     |   korean | 0.017277 |
     |     thai | 0.007634 |
     
-    1. 정밀도 재현율 f1-score를 확인하여 좀 더 정확하게 확인해보자.
+1. 정밀도 재현율 f1-score를 확인하여 좀 더 정확하게 확인해보자.
 
     ```python
     y_pred = model.predict(X_test)
