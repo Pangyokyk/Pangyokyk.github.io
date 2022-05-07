@@ -465,3 +465,190 @@ X_train, X_test, y_train, y_test = train_test_split(cuisines_feature_df, cuisine
     | accuracy     | 0.80      | 1199   |          |         |
     | macro avg    | 0.80      | 0.80   | 0.80     | 1199    |
     | weighted avg | 0.80      | 0.80   | 0.80     | 1199    |
+    
+    
+    
+# Cuisine classifiers 2
+이번에는 숫자 데이터를 분류하는 더 많은 방법을 살펴보자. 또한 한 분류기를 다른 분류기로 선택하는데 미치는 영향에 대해서도 알 수 있다.
+
+## 분류 MAP
+이전에는 Microsoft의 cheat sheet를 사용하여 데이터를 분류할 때 사용할 수 있는 다양한 옵션에 대해 배웠다. Scikit-learn은 추정기를 더 좁히는 데 도움이 되고 유사하지만 보다 세분화된 cheat sheet를 제공한다.
+
+### 계획
+이 지도는 데이터를 명확하게 파악하면 의사 결정에 이르는 경로를 보면서 따라갈 수 있으므로 매우 유용하다.
+한번 예시를 들어 지도를 따라가보자.
+
+- 50개의 샘플을 가지고 있음.
+- 범주를 예측하고 싶음.
+- label 데이터를 가지고 있음.
+- 10만개 미만의 샘플보유.
+- 그렇다면 Linear SVC를 선택할 수 있다.
+- 만약 안된다 하더라도 수치 데이터를 가지고 있기 때문에 KNeighbors Classifier를 사용할 수 있다.
+
+## Exercise - data 나누기
+라이브러리 가져오기
+
+1. 필요한 라이브러리
+
+    ```python
+    from sklearn.neighbors import KNeighborsClassifier
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.svm import SVC
+    from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
+    from sklearn.model_selection import train_test_split, cross_val_score
+    from sklearn.metrics import accuracy_score,precision_score,confusion_matrix,classification_report, precision_recall_curve
+    import numpy as np
+    ```
+
+1. 훈련셋과 테스트셋 나누기
+
+    ```python
+    X_train, X_test, y_train, y_test = train_test_split(cuisines_feature_df, cuisines_label_df, test_size=0.3)
+    ```
+    
+## Linear SVC classifier
+SVC(Support-Vector clustering)는 ML 기술인 Support-Vector machine에 포함되어 있다. 이 방법에서는 'kernel'을 선택하여 label을 군집화하는 방법을 결정할 수 있다.
+
+'C' 파라미터는 파라미터의 영향을 조절하는 '정규화'를 의미한다. 커널은 여러 가지 중 하나인데 여기서는 선형 SVC를 활용하도록 'linear'으로 설정한다. 그리고 확률은 기본적으로 'false'로 설정되며, 여기서는 확률 추정치를 수집하기 위해 'true'로 설정한다. 확률값을 얻어야 하기 때문에 데이터를 섞어 무작위 상태를 '0'으로 설정했다.
+
+### Exercise - linear SVC 적용
+분류 배열을 만드는 것으로 시작, 테스트하는 대로 이 어레이에 점진적으로 추가한다.
+
+1. Linear SVC 시작
+
+    ```python
+    C = 10
+    # Create different classifiers.
+    classifiers = {
+        'Linear SVC': SVC(kernel='linear', C=C, probability=True,random_state=0)
+    }
+    ```
+
+2. Linear SVC을 모델에 훈련시키고 결과를 출력
+
+    ```python
+    n_classifiers = len(classifiers)
+    
+    for index, (name, classifier) in enumerate(classifiers.items()):
+        classifier.fit(X_train, np.ravel(y_train))
+    
+        y_pred = classifier.predict(X_test)
+        accuracy = accuracy_score(y_test, y_pred)
+        print("Accuracy (train) for %s: %0.1f%% " % (name, accuracy * 100))
+        print(classification_report(y_test,y_pred))
+    ```
+
+    Linear SVC의 정확도는 78.6% 정밀도 재현율 f1 점수도 확인 가능하다.
+
+    ```output
+    Accuracy (train) for Linear SVC: 78.6% 
+                  precision    recall  f1-score   support
+    
+         chinese       0.71      0.67      0.69       242
+          indian       0.88      0.86      0.87       234
+        japanese       0.79      0.74      0.76       254
+          korean       0.85      0.81      0.83       242
+            thai       0.71      0.86      0.78       227
+    
+        accuracy                           0.79      1199
+       macro avg       0.79      0.79      0.79      1199
+    weighted avg       0.79      0.79      0.79      1199
+    ```
+
+
+## K-Neighbors classifier
+K-Neighbors는 ML 방법의 "Neighbors" 계열의 일부로, 지도 학습과 비지도 학습 모두에 사용할 수 있다. 이 방법에서는 데이터에 대한 일반화된 label을 예측할 수 있도록 미리 정의된 수의 v포인트가 생성되고 이러한 포인트 주위의 데이터가 수집된다.
+
+
+### Exercise - K-Neighbors classifier 적용
+이전의 분류기는 좋았고, 데이터도 잘 작동했지만, 정확도 점수가 그렇게 좋지 못했다. K-Neighbors 분류기를 사용해 보자.
+
+1. 분류 배열에 줄 추가(Linear SVC 항목 뒤에 쉼표 추가):
+
+    ```python
+    'KNN classifier': KNeighborsClassifier(C),
+    ```
+
+    결과가 아까보다 나쁘다.
+
+    ```output
+    Accuracy (train) for KNN classifier: 73.8% 
+                  precision    recall  f1-score   support
+    
+         chinese       0.64      0.67      0.66       242
+          indian       0.86      0.78      0.82       234
+        japanese       0.66      0.83      0.74       254
+          korean       0.94      0.58      0.72       242
+            thai       0.71      0.82      0.76       227
+    
+        accuracy                           0.74      1199
+       macro avg       0.76      0.74      0.74      1199
+    weighted avg       0.76      0.74      0.74      1199
+    ```
+    
+
+## Support Vector Classifier
+Support-Vector Classifier는 분류 및 회귀 작업에 사용되는 ML 메서드의 Support-Vector Machine의 일부입니다. SVM은 두 범주 간의 거리를 최대화하기 위해 "공간 내 지점에 훈련 예제를 매핑"한다. 후속 데이터는 해당 범주를 예측할 수 있도록 이 공간에 매핑된다.
+
+
+### Exercise - Support Vector Classifier 적용
+Support Vector Classifier를 사용하여 더 나은 정확도를 뽑아보자.
+
+1. K-Neighbors 항목 뒤에 쉼표를 추가하고 다음 줄을 추가.
+
+    ```python
+    'SVC': SVC(),
+    ```
+
+    정확도가 좀 더 올랐다.
+
+    ```output
+    Accuracy (train) for SVC: 83.2% 
+                  precision    recall  f1-score   support
+    
+         chinese       0.79      0.74      0.76       242
+          indian       0.88      0.90      0.89       234
+        japanese       0.87      0.81      0.84       254
+          korean       0.91      0.82      0.86       242
+            thai       0.74      0.90      0.81       227
+    
+        accuracy                           0.83      1199
+       macro avg       0.84      0.83      0.83      1199
+    weighted avg       0.84      0.83      0.83      1199
+    ```
+
+
+## Classifiers 모음
+'Ensemble Classifiers, 특히 랜덤 포레스트와 AdaBoost를 사용해보자.
+
+```python
+  'RFST': RandomForestClassifier(n_estimators=100),
+  'ADA': AdaBoostClassifier(n_estimators=100)
+```
+
+랜덤 포레스트의 경우 결과가 매우 우수하다.
+
+```output
+Accuracy (train) for RFST: 84.5% 
+              precision    recall  f1-score   support
+     chinese       0.80      0.77      0.78       242
+      indian       0.89      0.92      0.90       234
+    japanese       0.86      0.84      0.85       254
+      korean       0.88      0.83      0.85       242
+        thai       0.80      0.87      0.83       227
+    accuracy                           0.84      1199
+   macro avg       0.85      0.85      0.84      1199
+weighted avg       0.85      0.84      0.84      1199
+Accuracy (train) for ADA: 72.4% 
+              precision    recall  f1-score   support
+     chinese       0.64      0.49      0.56       242
+      indian       0.91      0.83      0.87       234
+    japanese       0.68      0.69      0.69       254
+      korean       0.73      0.79      0.76       242
+        thai       0.67      0.83      0.74       227
+    accuracy                           0.72      1199
+   macro avg       0.73      0.73      0.72      1199
+weighted avg       0.73      0.72      0.72      1199
+```
+
+이 머신러닝은 모델의 품질을 향상시키기 위해 여러 기본 추정기의 예측을 결합한다. 이 예에서는 랜덤 트리와 AdaBoost를 사용
