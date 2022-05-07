@@ -4,7 +4,7 @@ Getting started with classification
 회귀 분석에 대한 이전 공부를 바탕으로 데이터를 더 잘 이해하는 데 사용할 수 있는 다른 분류기에 대해 알아보자.
 
 
-1.Introduction to classification
+# 1.Introduction to classification
 ------------
 이 네 가지 lessons에서 classic machine learning 의 기본 초점인 Classification를 공부할 예정인데 
 아시아와 인도의 모든 훌륭한 요리에 대한 데이터 세트를 사용하여 다양한 분류 알고리즘을 사용할 것이다.
@@ -468,7 +468,7 @@ X_train, X_test, y_train, y_test = train_test_split(cuisines_feature_df, cuisine
     
     
     
-# Cuisine classifiers 2
+# 3. Cuisine classifiers 2
 이번에는 숫자 데이터를 분류하는 더 많은 방법을 살펴보자. 또한 한 분류기를 다른 분류기로 선택하는데 미치는 영향에 대해서도 알 수 있다.
 
 ## 분류 MAP
@@ -653,4 +653,266 @@ Accuracy (train) for ADA: 72.4%
 weighted avg       0.73      0.72      0.72      1199
 ```
 
-이 머신러닝은 모델의 품질을 향상시키기 위해 여러 기본 추정기의 예측을 결합한다. 이 예에서는 랜덤 트리와 AdaBoost를 사용
+이 머신러닝은 모델의 품질을 향상시키기 위해 여러 기본 추정기의 예측을 결합한다. 이 예에서는 랜덤 트리와 AdaBoost를 사용했다.
+
+
+# 4. Appliied
+
+## 요리 추천 웹 앱 구축
+지금까지 앞에서 배운것들을 활용하여 맛있는 요리 데이터 세트를 사용하여 분류 모델을 구축한다. 또한, Onnx의 웹 런타임을 활용하여 저장된 모델을 사용할 수 있는 작은 웹 앱을 만들수 있다. 머신러닝의 활용으로 이런 것을 만들 수 있는데 난 아직 배우지 않았기 때문에 글을 읽으며 이해해 보자...
+
+## 나의 모델 구축
+응용 ML 시스템을 구축하는 것은 비즈니스 시스템에 이러한 기술을 활용하는 데 있어 중요한 부분이다. Onnx를 사용하여 웹 응용 프로그램 내에서 모델을 사용할 수 있으므로 필요한 경우 오프라인 컨텍스트에서 모델을 사용할 수 있다. Onnx의 기본 모델을 사용할 수도 있고 내가 모델을 만들 수도 있나보다.
+
+이 과정에서는 추론을 위한 기본 JavaScript 기반 시스템을 구축할 수 있는데 먼저 모델을 교육하고 Onnx에서 사용하도록 변환해야 한다.
+
+## Exercise - classification model 훈련
+
+먼저 우리가 사용한 깔끔한 요리 데이터 세트를 사용하여 분류 모델을 훈련한다.
+
+1. 사용할 라이브러리 불러오기
+
+    ```python
+    !pip install skl2onnx
+    import pandas as pd 
+    ```
+
+    Scikit-learn 모델을 Onnx 형식으로 변환하려면 '[skl2onnx](https://onnx.ai/sklearn-onnx/)'가 필요하다.
+
+1. 그런 다음 'read_csv()'를 사용하여 CSV 파일을 읽어 이전과 동일한 방식으로 데이터를 처리
+
+    ```python
+    data = pd.read_csv('https://github.com/codingalzi/ML-For-Beginners/tree/main/4-Classification/data/cleaned_cuisines.csv')
+    data.head()
+    ```
+
+1. 처음 두 개의 불필요한 열을 제거하고 나머지 데이터를 'X'로 저장
+
+    ```python
+    X = data.iloc[:,2:]
+    X.head()
+    ```
+
+1. label을 'y'로 저장
+
+    ```python
+    y = data[['cuisine']]
+    y.head()
+    
+    ```
+
+### 훈련 루틴을 시작
+정확도가 좋은 'SVC' 라이브러리를 사용
+
+1. 사이킷런으로부터 사용할 라이브러리 불러오기
+
+    ```python
+    from sklearn.model_selection import train_test_split
+    from sklearn.svm import SVC
+    from sklearn.model_selection import cross_val_score
+    from sklearn.metrics import accuracy_score,precision_score,confusion_matrix,classification_report
+    ```
+
+1. 훈련셋과 테스트셋 나누기
+
+    ```python
+    X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.3)
+    ```
+
+1. SVC Classification 모델을 구축
+
+    ```python
+    model = SVC(kernel='linear', C=10, probability=True,random_state=0)
+    model.fit(X_train,y_train.values.ravel())
+    ```
+
+1. `predict()`을 이용하여 모델 평가하기
+
+    ```python
+    y_pred = model.predict(X_test)
+    ```
+
+1. classification_report을 사용하여 모델의 품질을 확인
+    ```python
+    print(classification_report(y_test,y_pred))
+    ```
+
+   정확도가 좋다.
+
+    ```output
+                    precision    recall  f1-score   support
+    
+         chinese       0.72      0.69      0.70       257
+          indian       0.91      0.87      0.89       243
+        japanese       0.79      0.77      0.78       239
+          korean       0.83      0.79      0.81       236
+            thai       0.72      0.84      0.78       224
+    
+        accuracy                           0.79      1199
+       macro avg       0.79      0.79      0.79      1199
+    weighted avg       0.79      0.79      0.79      1199
+    ```
+
+### Onnx에 모델 적용시키기
+반드시 적절한 Tensor 수 로 변환해야 한다. 이 데이터 집합에는 380개의 성분이 나열되어 있으므로 'FloatTensorType'에서 해당 숫자를 기록해야 한다.
+
+1. 380개의 Tensor 수 변환
+
+    ```python
+    from skl2onnx import convert_sklearn
+    from skl2onnx.common.data_types import FloatTensorType
+    
+    initial_type = [('float_input', FloatTensorType([None, 380]))]
+    options = {id(model): {'nocl': True, 'zipmap': False}}
+    ```
+
+1. onnx를 생성하고 파일을 'model.onnx'로 저장합니다.
+
+    ```python
+    onx = convert_sklearn(model, initial_types=initial_type, options=options)
+    with open("./model.onnx", "wb") as f:
+        f.write(onx.SerializeToString())
+    ```
+    
+    
+## 나의 모델 보기
+Onnx 모델은 Visual Studio 코드에서 잘 보이지 않지만, 많은 연구자들이 모델을 시각화하기 위해 사용하는 매우 좋은 무료 소프트웨어가 있다. Netron을 다운로드하고 model.onnx 파일을열면 380개의 입력과 분류기가 나열된 단순 모델을 시각화할 수 있다.
+
+<img width="196" alt="netron" src="https://user-images.githubusercontent.com/103716440/167253252-a61208c8-7e0d-4f07-95ef-e53ece21ac5f.png">
+
+Netron은 나의 모델을 보여주는데 도움을 준다.
+
+## 추천하는 웹 응용 프로그램 구축
+이제부터는 내가 지금까지 정리한 데이터세트와 훈련모델을 이용해서 웹 프로그램을 구축하는데 아직 배우지 않은 부분이니 따라하면서 읽어보자.
+
+1. _index.html_에서 다음 마크업을 추가하십시오.
+
+    ```html
+    <!DOCTYPE html>
+    <html>
+        <header>
+            <title>Cuisine Matcher</title>
+        </header>
+        <body>
+            ...
+        </body>
+    </html>
+    ```
+
+1. 'body' 태그 내에서 작업하면서 일부 성분을 반영하는 확인란 목록을 표시하기 위해 약간의 마크업을 추가
+
+    ```html
+    <h1>Check your refrigerator. What can you create?</h1>
+            <div id="wrapper">
+                <div class="boxCont">
+                    <input type="checkbox" value="4" class="checkbox">
+                    <label>apple</label>
+                </div>
+
+                <div class="boxCont">
+                    <input type="checkbox" value="247" class="checkbox">
+                    <label>pear</label>
+                </div>
+
+                <div class="boxCont">
+                    <input type="checkbox" value="77" class="checkbox">
+                    <label>cherry</label>
+                </div>
+
+                <div class="boxCont">
+                    <input type="checkbox" value="126" class="checkbox">
+                    <label>fenugreek</label>
+                </div>
+
+                <div class="boxCont">
+                    <input type="checkbox" value="302" class="checkbox">
+                    <label>sake</label>
+                </div>
+
+                <div class="boxCont">
+                    <input type="checkbox" value="327" class="checkbox">
+                    <label>soy sauce</label>
+                </div>
+
+                <div class="boxCont">
+                    <input type="checkbox" value="112" class="checkbox">
+                    <label>cumin</label>
+                </div>
+            </div>
+            <div style="padding-top:10px">
+                <button onClick="startInference()">What kind of cuisine can you make?</button>
+            </div> 
+    ```
+
+    index.html 파일에서 작업을 계속하고 최종 종료 </div> 뒤에 모델이 호출되는 스크립트 블록을 추가
+
+1. [Onnx Runtime] 불러오기(https://www.onnxruntime.ai/):
+
+    ```html
+    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.9.0/dist/ort.min.js"></script> 
+    ```
+
+
+1. 런타임이 설치되면 런타임을 호출할 수 있다.
+
+    ```html
+    <script>
+        const ingredients = Array(380).fill(0);
+        
+        const checks = [...document.querySelectorAll('.checkbox')];
+        
+        checks.forEach(check => {
+            check.addEventListener('change', function() {
+                // toggle the state of the ingredient
+                // based on the checkbox's value (1 or 0)
+                ingredients[check.value] = check.checked ? 1 : 0;
+            });
+        });
+        function testCheckboxes() {
+            // validate if at least one checkbox is checked
+            return checks.some(check => check.checked);
+        }
+        async function startInference() {
+            let atLeastOneChecked = testCheckboxes()
+            if (!atLeastOneChecked) {
+                alert('Please select at least one ingredient.');
+                return;
+            }
+            try {
+                // create a new session and load the model.
+                
+                const session = await ort.InferenceSession.create('./model.onnx');
+                const input = new ort.Tensor(new Float32Array(ingredients), [1, 380]);
+                const feeds = { float_input: input };
+                // feed inputs and run
+                const results = await session.run(feeds);
+                // read from results
+                alert('You can enjoy ' + results.label.data[0] + ' cuisine today!')
+            } catch (e) {
+                console.log(`failed to inference ONNX model`);
+                console.error(e);
+            }
+        }
+               
+    </script>
+    ```
+    
+이 코드에는 다음과 같은 몇 가지 일이 발생한다.
+1. 성분 확인란이 선택되었는지 여부에 따라 380개의 가능한 값(1 또는 0)을 설정하여 모형으로 전송하여 추론
+2. 확인란 배열과 응용 프로그램이 시작될 때 호출되는 'init' 함수에서 확인되었는지 확인하는 방법을 만들었다. 확인란을 선택하면 선택한 성분을 반영하도록 성분 배열이 변경됩니다.
+3. 확인란이 선택되었는지 확인하는 'test Checkboxes' 함수를 생성.
+4. 버튼을 누르면 '추론 시작' 기능을 사용하고, 체크박스가 켜져 있으면 추론을 시작.
+5. 추론 루틴은 다음을 포함한다.
+   1. 모델의 비동기 로드 설정
+   2. 모델에 보낼 Tensor 구조 생성
+   3. 모델을 교육할 때 작성한 'float_input' 입력을 반영하는 'feeds' 만들기(Netron을 사용하여 해당 이름을 확인 가능)
+   4. 이러한 'feeds'를 모델에 보내고 응답을 기다림
+
+## 어플리케이션 테스트
+
+<img width="816" alt="web-app" src="https://user-images.githubusercontent.com/103716440/167253598-816d6574-f275-4171-9911-0ddddc8ec133.png">
+
+위에 해당하는 스크립트를 적용하면 웹 프로그램을 만들고 결과를 확인할 수 있나보다.
+
+## 소감
+**이 github을 통해 그동안 배운 분류기들을 활용해 '음식재료' 라는 데이터셋들을 분류했다. 이번 공부를 통해 데이터셋이 주어졌을때 여러 분류기를 사용해 어떤 것을 사용해야 좋을지 추론하는 능력을 더 기를 수 있었다.
