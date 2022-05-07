@@ -474,6 +474,8 @@ X_train, X_test, y_train, y_test = train_test_split(cuisines_feature_df, cuisine
 ## 분류 MAP
 이전에는 Microsoft의 cheat sheet를 사용하여 데이터를 분류할 때 사용할 수 있는 다양한 옵션에 대해 배웠다. Scikit-learn은 추정기를 더 좁히는 데 도움이 되고 유사하지만 보다 세분화된 cheat sheet를 제공한다.
 
+![map](https://user-images.githubusercontent.com/103716440/167252371-42b1cb22-5423-4f83-9d19-fb8e207e3a32.png)
+
 ### 계획
 이 지도는 데이터를 명확하게 파악하면 의사 결정에 이르는 경로를 보면서 따라갈 수 있으므로 매우 유용하다.
 한번 예시를 들어 지도를 따라가보자.
