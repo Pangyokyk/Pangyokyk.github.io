@@ -27,7 +27,7 @@ Getting started with classification
 
 과학적인 방법으로 공정을 설명하기 위해, 분류에서는 입력 변수와 출력 변수 사이의 관계를 매핑할 수 있는 예측 모형을 만든다.
 
-![poster](./binary-multiclass.png)
+<img src="./binary-multiclass.png" >
 
 spam 과 ham 을 구분하는 분류 알고리즘을 저번에 공부했었다.
 
