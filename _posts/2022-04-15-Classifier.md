@@ -619,7 +619,7 @@ Support Vector Classifier를 사용하여 더 나은 정확도를 뽑아보자.
 
 
 ## Classifiers 모음
-'Ensemble Classifiers, 특히 랜덤 포레스트와 AdaBoost를 사용해보자.
+다른 Classifiers을 사용해보자. 그중 랜덤 포레스트와 AdaBoost를 사용해보자.
 
 ```python
   'RFST': RandomForestClassifier(n_estimators=100),
