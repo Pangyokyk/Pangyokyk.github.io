@@ -846,7 +846,7 @@ Netron은 나의 모델을 보여주는데 도움을 준다.
 
     index.html 파일에서 작업을 계속하고 최종 종료 </div> 뒤에 모델이 호출되는 스크립트 블록을 추가
 
-1. [Onnx Runtime] 불러오기(https://www.onnxruntime.ai/):
+1. [Onnx Runtime] 불러오기
 
     ```html
     <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.9.0/dist/ort.min.js"></script> 
