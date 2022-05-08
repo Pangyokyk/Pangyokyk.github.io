@@ -29,7 +29,7 @@ Getting started with classification
 
 ![binary-multiclass](https://user-images.githubusercontent.com/103716440/167249869-d50a3d59-ca7d-4ca9-a2bc-c6969f94aac3.png)
 
-spam 과 ham 을 구분하는 분류 알고리즘을 저번에 공부했었다.
+[spam 과 ham 을 구분하는 분류 알고리즘을 저번에 공부했었다.]
 
 데이터를 정리하고 시각화하고 ML 작업에 대비하는 프로세스를 시작하기 전에, 머신 러닝을 활용하여 데이터를 분류하는 다양한 방법에 대해 조금 알아보자.
 
