@@ -1,9 +1,9 @@
 ---
 layout: post
 title: 가독성 구릴(?)수도 있는 노트
-tags: 
--Just Chatting
+tags: [Just Chatting]
 date: 2025-01-18 +0800
+toc : true
 ---
 
 # 게임 업계 취직을 꿈꾸며 오늘 공부한 흔적을 남기는 공간
