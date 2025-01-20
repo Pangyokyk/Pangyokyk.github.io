@@ -10,6 +10,7 @@ toc : true
 # Hash table 정리
 ****
 ## Hash table이란?
+
 - 데이터를 효율적으로 저장하고 검색하기 위해 사용하는 자료구조
 - **<mark>키-값(key-value pair)</mark>** 쌍으로 데이터를 저장하며 내부적으로는 해시 함수를 이용해 키를 특정 위치에 매핑한다.
 - C++ STL(Standard Template Library)에서는 주로 **unordered_map** 과 **unordered_set** 으로 해시테이블을 구현한다.
