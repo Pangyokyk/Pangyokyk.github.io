@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Roman to Integer
-tags: [Leetcode, Coding Test, STL, C++]
+tags: [Leetcode, Coding Test, hash table ]
 date: 2025-01-20 +0800
 math: true
 toc : true

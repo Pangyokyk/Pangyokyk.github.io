@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Unordered_map 정리
-tags: [STL, C++]
+tags: [STL, C++, hash table]
 date: 2025-01-20 +0800
 math: true
 toc : true
