@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Valid Parentheses
-tags: [Leetcode, Coding Test, stack]
+title: 20. Valid Parentheses
+tags: [Leetcode, Coding Test, stack, easy]
 date: 2025-01-21 +0800
 math: true
 toc : true
