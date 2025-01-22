@@ -1,6 +1,6 @@
 ---
 layout: post
-title: List
+title: Binary search
 tags: [STL, C++, binary search]
 date: 2025-01-22 +0800
 math: true
