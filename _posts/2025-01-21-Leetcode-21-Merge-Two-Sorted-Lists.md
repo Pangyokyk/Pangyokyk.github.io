@@ -59,6 +59,63 @@ Output: [0]
 1. list1의 마지막 노드가 list2의 첫번째 노드를 가리키도록 한다.
 2. 그리고 리스트를 정렬한다.
 
-**라고 생각했었지만(너무 자기 위주로 생각했다.)**
+**라고 생각했었지만(컴퓨팅적 사고를 기르자)**
 - list1과 list2 의 첫번째 노드를 비교해본다.
-- 크기가 작은 list1의 숫자를 배치해주고 
+- 작거나 같은 리스트의 노드를 리턴하고 재귀적으로 다시 함수를 호출해서 비교를 계속 하면 될 것이다.
+- 만약 list1 과 list2 둘중 하나가 비어있으면 비어있지 않은 리스트를 호출하는 예문도 만들어둬야할 것이다.
+
+
+****
+
+
+## 구현
+
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+ //문제에서 주어진 ListNode의 구조체
+
+class Solution{
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        //list1, list2 둘중 하나가 비어있는 경우
+        if(list1 == NULL)
+        {
+            return list2;
+        }
+        if(list2 == NULL)
+        {
+            return list1;
+        }
+
+        //list1과 list2 노드들 비교
+        //list1 값이 더 작을 경우
+        if(list1 -> val <= list2 -> val)
+        {
+            list1 -> next = mergeTwoLists(list1->next, list2);
+            return list1;
+        }
+        else //list2 값이 더 작을 경우
+        {
+            list2 -> next = mergeTwoLists(list1, list2 -> next)
+            return list2;
+        }
+    }
+ };
+```
+
+
+****
+
+
+## 코드관찰
+- 재귀적으로 접근하는 방법에 대해 생각해보는 문제였다.
+- **List** 관련 문제를 풀 때는 노드의 구조에 대해 생각해 노드에 어떻게 접근해서 풀 것인지를 잘 생각해봐야 할 것 같다.
