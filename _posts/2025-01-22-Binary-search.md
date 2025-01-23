@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Binary search
-tags: [STL, C++, binary search]
+tags: [C++, binary search, algorithm]
 date: 2025-01-22 +0800
 math: true
 toc : true
