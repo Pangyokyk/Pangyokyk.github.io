@@ -2,7 +2,7 @@
 layout: post
 title: Dynamic Programming(DP)
 tags: [C++, dynamic programming, algorithm]
-date: 2025-01-20 +0800
+date: 2025-01-23 +0800
 math: true
 toc : true
 ---
@@ -78,6 +78,7 @@ int main() {
 
 2. <mark>바텁 업(Bottom - up) 방식(반복문 + 테이블)</mark>
    - 문제를 작은 하위 문제부터 차근차근 풀어나가면서 그 결과를 테이블(배열, 리스트) 등에 저장해간다.
+   - **반복문을 호출하므로 오버헤드가 없다** , 탑다운 방식은 오버플로우가 발생가능성이 있따.
    - 일반적으로 반복문을 사용하여 모든 하위 문제를 해결하고, 최종적으로 원하는 값을 테이블에서 찾아 반환한다.
 
 
