@@ -79,7 +79,7 @@ The number of nodes in the tree is in the range [0, 100].
 - **Follow up** 에는 재귀적으로 코드를 짜보고 반복적으로도 코드를 짜 보라고 한다.
 
 
-## 구현(self)
+## 구현(재귀적)
 
 ```cpp
 class Solution {
@@ -105,7 +105,7 @@ private :
 
 ## 코드 설명
 
-- **DFS / BFS 요약 참고**
+- [DFS / BFS 요약](https://pangyokyk.github.io/2025/01/25/DFS-BFS/)
 
 
 ## 구현(Stack)
