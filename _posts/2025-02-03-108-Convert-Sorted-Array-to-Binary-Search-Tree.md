@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 108. Convert Sorted Array to Binary Search Tree
-tags: [Leetcode, Coding Test, array, easy]
+tags: [Leetcode, Coding Test, list, bfs, binary search, easy]
 date: 2025-02-03 +0800
 math: true
 toc : true
@@ -92,7 +92,7 @@ public :
 
 
 ## 코드 해석
-- 이 문제는 BST(넓이 우선 탐색)에 관한 문제였다.
+- 이 문제는 BFS(넓이 우선 탐색)에 관한 문제였다.
 - Input으로 들어온 숫자들의 **가운데(mid)** 를 처음 root로 지정하고 가운데 숫자를 기준으로 왼쪽, 오른쪽 서브 트리로 나누어 계속 가운데를 지정해 트리를 만드는 문제였다.
 - [문제 사이트에 친절한 움직이는 그림 설명이 있다](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/description/)
 
