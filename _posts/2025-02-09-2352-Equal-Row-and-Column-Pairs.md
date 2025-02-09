@@ -47,7 +47,9 @@ Explanation: There are 3 equal row and column pairs:
 Constraints:
 
 n == grid.length == grid[i].length
+
 1 <= n <= 200
+
 1 <= grid[i][j] <= 10^5
 
 
