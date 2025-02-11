@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Hash table
+title: 📚 Hash table
 tags: [C++, algorithm, hash table]
 date: 2025-02-08 +0800
 math: true
