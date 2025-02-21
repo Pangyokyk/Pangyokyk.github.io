@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 701. Insert into a Binary Search Tree
-tags: [Leetcode, Coding Test, BST, medium]
+tags: [Leetcode, Coding Test, bst, medium]
 date: 2025-02-21 +0800
 math: true
 toc : true
