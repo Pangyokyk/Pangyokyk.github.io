@@ -130,7 +130,7 @@ while(prefLen > s.size() || pref != s.substr(0, prefLen))
 ```
 - **이번 문제에서 핵심 아이디어이다.**
 - while 문은 pref = strs[0] 을 문자열을 한개씩 지워가며 공통된 접두사들을 찾는 코드를 쓸 것이다.
-- 즉, <mark>**Sliding Window**</mark> 기법을 사용하는 것이다.
+- 즉, **<mark>Sliding Window</mark>** 기법을 사용하는 것이다.
 - while 문의 조건문을 살펴보면
 
 ```cpp
@@ -146,7 +146,7 @@ pref != s.substr(0, prefLen)
 
 
 
-### std::string 에서의 substr
+### std::string 문법 substr
 
 - string 에서 범위를 지정해서 그 부분만 읽어오고 싶을 떄 substr()을 사용한다.
 - <mark>**substr(시작위치, 읽을 길이)**</mark>
