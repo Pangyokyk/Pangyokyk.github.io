@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Hash table
+title: 📚 Hash table
 tags: [STL, C++]
 date: 2025-01-20 +0800
 math: true
@@ -8,13 +8,13 @@ toc : true
 ---
 
 
-# Hash table 정리
+# 📚 Hash table 정리
 
 
 ****
 
 
-## Hash table이란?
+## 🔎 Hash table이란?
 
 - 데이터를 효율적으로 저장하고 검색하기 위해 사용하는 자료구조
 - **<mark>키-값(key-value pair)</mark>** 쌍으로 데이터를 저장하며 내부적으로는 해시 함수를 이용해 키를 특정 위치에 매핑한다.
@@ -23,7 +23,7 @@ toc : true
 ****
 
 
-## 특징
+## 💡 특징
 
 **1. 빠른 검색**
    - 평균적으로 \(O(1\))의 시간 복잡도로 검색, 삽입, 삭제를 수행한다. 최악의 경우는 충돌이 많을 때 \(O(n\))이다. 
@@ -34,7 +34,7 @@ toc : true
   - 키를 특정 버킷으로 매핑하기 위해 사용된다. 해시함수가 충돌을 최소화 할수록 성능이 올라간다.
 ****
 
-## 구현
+## 💻 구현
 ```cpp
 #include <iostream>
 #include <string>
@@ -73,7 +73,7 @@ int main()
 }
 ```
 ****
-## 코드 공부
+## 💻 코드 공부
 ```cpp
 unordered_map<string, int> hash_table {
         {"apple", 5},
@@ -112,6 +112,15 @@ unordered_map<string, int> hash_table {
 
 ****
 
-# 정리
+## 📌 정리
 c++ 에서 hash table 은 **unordered_map** 과 **unordered_set** 으로 구현할 수 있다. 빠른 검색, 삽입, 삭제를 제공하지만 충돌과 메모리 사용량 관리가 중요한 요소이며, 데이터 순서를 유지하려면 **map**을 사용해야한다.
 (여기서는 unordered_map만 다뤘는데 unordered_set은 중복되지 않은 고유한 키만 저장하는 방법이다.)
+
+
+
+
+****
+
+
+## 추가 내용(03-06)
+- hash table 에서 만약 저장되어 있지 않는 값이 나온다면 자동적으로 **<mark>0의 값으로 처리 한다</mark>**
