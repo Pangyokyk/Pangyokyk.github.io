@@ -109,6 +109,95 @@ unordered_map<string, int> hash_table {
 - iterator 반복자를 통해 해시테이블 전부 뽑아보기
 
 
+****
+
+## 🛠 주요 메소드
+
+- **insert() : 삽입**
+```cpp
+#include <iostream>
+#include <unordered_map>
+
+int main() {
+    std::unordered_map<int, std::string> umap;
+    umap.insert({1, "apple"});
+    umap.insert({2, "banana"});
+    
+    // 키가 존재하면 삽입되지 않음
+    umap.insert({1, "grape"});
+    
+    std::cout << umap[1] << std::endl;  // apple
+    return 0;
+}
+```
+새로운 (key, value) 를 삽입한다.
+
+
+- **operator[] : 키를 사용하여 접근**
+```cpp
+umap[3] = "cherry";  // 새로운 (3, "cherry") 삽입
+std::cout << umap[3] << std::endl;  // 출력: cherry
+```
+키를 사용하여 값(value)에 접근
+만약 키가 없다면 기본값을 삽입하고 반환
+
+- **emplace() : insert()와 비슷하지만 객체를 직접 생성해서 넣음**
+```cpp
+ // 바로 생성하고 바로 (key, value)넣음
+umap.emplace(4, "mango");
+```
+
+- **count() : 특정 키 존재 검색**
+```cpp
+if (umap.count(2)) {
+    std::cout << "Key 2 exists\n";
+}
+```
+반환값이 **1** 이면 존재 **0** 이면 존재하지 않는다는 뜻
+
+
+- **find() : 키를 찾아 intertor 반환**
+```cpp
+auto it = umap.find(2);
+if (it != umap.end()) {
+    std::cout << "Key 2 found: " << it->second << std::endl;
+}
+```
+키가 존재하면 해당 키-값의 **포인터** 를 반환하고 없으면 **operator.end()** 를 반환한다.
+
+
+- **erase() : 특정 키 삭제**
+```cpp
+umap.erase(2);  // 키 2 삭제
+
+// 이터레이터를 사용해 삭제할 수도 있음
+auto it = umap.find(3);
+if (it != umap.end()) {
+    umap.erase(it);
+}
+```
+
+- **clear() : 모든 요소 삭제**
+```cpp
+umap.clear();
+```
+
+
+- **size() : 현재 해쉬테이블의 원소 개수 반환**
+```cpp
+std::cout << "Size: " << umap.size() << std::endl;
+```
+
+- **empty() : 맵이 비어있는지 true or false 로 반환**
+```cpp
+if (umap.empty()) {
+    std::cout << "Hash table is empty" << std::endl;
+}
+```
+
+
+- **begin(), end() : 첫 번째와 <mark>끝 다음 위치</mark> 를 가리키는 이터레이터를 반환**
+
 
 ****
 
