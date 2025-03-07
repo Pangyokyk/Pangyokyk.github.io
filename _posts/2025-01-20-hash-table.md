@@ -213,3 +213,8 @@ c++ 에서 hash table 은 **unordered_map** 과 **unordered_set** 으로 구현�
 
 ## 추가 내용(03-06)
 - hash table 에서 만약 저장되어 있지 않는 값이 나온다면 자동적으로 **<mark>0의 값으로 처리 한다</mark>**
+
+
+## 추가 내용(03-07)
+- hash table 에서 인자로 int, char, int 말고 function 함수를 선언할 수 있다.
+[leecode 알고리즘 문제](https://pangyokyk.github.io/2025/03/07/150-Evaluate-Reverse-Polish-Notation/)

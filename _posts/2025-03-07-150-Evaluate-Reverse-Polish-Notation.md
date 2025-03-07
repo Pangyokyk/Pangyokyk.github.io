@@ -209,11 +209,13 @@ unordered_map<string, function<int (int, int)>> map = {
 map[a](top2, top1) // 문제에서 람다 표현식 사용
 ```
 
-
 - 또한 이번 문제를 풀면서 알게된 것은 count() 메소드 이다.
+
+
 ```cpp
 if(!map.count(a))
 ```
+
 
 - hash table 에서 count()는 존재한다면 '1' 존재하지 않는다면 '0' 을 반환한다.
 - **'0' = false, '0' 을 제외한 나머지 숫자 = true 라고 인식한다.**
