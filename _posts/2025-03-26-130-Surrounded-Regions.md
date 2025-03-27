@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 130. Surrounded Regions
-tags: [Leetcode, Coding Test, array, dfs, bfs, medium]
+tags: [Leetcode, Coding Test, graph, medium]
 date: 2025-03-26 +0800
 math: true
 toc : true

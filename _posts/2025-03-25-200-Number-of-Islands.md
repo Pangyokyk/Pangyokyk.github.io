@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 200. Number of Islands
-tags: [Leetcode, Coding Test, array, dfs, bfs, union find, medium]
+tags: [Leetcode, Coding Test, graph, medium]
 date: 2025-03-25 +0800
 math: true
 toc : true
