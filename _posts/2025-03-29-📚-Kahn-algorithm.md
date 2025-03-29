@@ -39,6 +39,8 @@ toc : true
 
 ## 🚀 Kahn 알고리즘을 활용한 Leecode 문제!!
 
+- [Course Schedule](https://pangyokyk.github.io/2025/03/29/207-Course-Schedule/)
+- [Course Schedule II](https://pangyokyk.github.io/2025/03/29/210-Course-Schedule-II/)
 
 
 
