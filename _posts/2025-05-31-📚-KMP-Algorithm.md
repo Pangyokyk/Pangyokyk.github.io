@@ -14,7 +14,7 @@ toc : true
 - 문자열 검색 알고리즘
 - 텍스트 내에서 패턴 문자열을 빠르게 찾는 알고리즘
 - **일반적인 문자열 탐색(브루트포스)이 \(O(n*m\)) 인 반면 KMP는 \(O(n+m\)) 시간에 수행한다.(n = 텍스트 길이, m = 패턴 길이)**
-
+- [KMP를 잘 정리해준 사이트](https://10000cow.tistory.com/entry/%EB%AC%B8%EC%9E%90%EC%97%B4-%EA%B2%80%EC%83%89-%ED%95%9C-%EC%82%B4%EB%8F%84-%EC%9D%B4%ED%95%B4%ED%95%98%EB%8A%94-KMP-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98)
 
 ## 🔎 KMP 핵심 아이디어 
 - 패턴 내에서 실패할 때 다시 처음부터 비교하지 않고, **이미 일치했던 부분을 활용해** 건너뛴다.
@@ -65,7 +65,7 @@ vector<int> computeLps(const string& pattern) {
         {
             if(len != 0)
             {
-                len = len[len-1]; // len을 lps[len-1]로 줄여서 다시 비교
+                len = lps[len-1]; // len을 lps[len-1]로 줄여서 다시 비교
             }
             else
             {
